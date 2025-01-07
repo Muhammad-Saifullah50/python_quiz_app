@@ -14,7 +14,8 @@ def getSubjects(request):
     serializedSubjects = SubjectSerializer(subjects, many=True)
 
     return Response(
-        {"message": "Subjects retrieved successfully", "data": serializedSubjects.data},
+        {"message": "Subjects retrieved successfully", 
+         "data": serializedSubjects.data},
         status=200,
     )
 
@@ -48,5 +49,5 @@ def getQuestionById(request, subject_id, question_id):
     data = {"question": serializedQuestion.data, "answers": serializedAnswers.data}
 
     return Response(
-        {"message": "Question retrieved successfully", data: data}, status=200
+        {"message": "Question retrieved successfully", "data": data}, status=200
     )

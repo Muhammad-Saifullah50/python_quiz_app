@@ -1,33 +1,39 @@
-{%extends 'layout.html'%}
+{% extends 'layout.html'%}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/quiz.css' %}">
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'styles/quiz.css' %}" >
 
-    <title>Quiz page</title>
-</head>
-
-<body>
-    {% block content %}
+{% block quiz %}
+<section class="quiz-container">
 
     <div>
-        <h1>{{data.question.question}}</h1>
+        <h1>{{data.data.question.question}}</h1>
     </div>
     <div>
-        <ul>
-            {% for answer in data.answers %}
+        <ul class="answer-container">
+            {% for answer in data.data.answers %}
             <li class="quiz-answer">{{answer.text}}</li>
             {% endfor %}
         </ul>
     </div>
 
-    {% endblock %}
 
-</body>
 
-</html>
+    <section class="button-container">
+
+        {% if prevQuestionId %}
+        <a href="{% url 'quiz_question'  subject_id=subject_id question_id=prevQuestionId %}"
+            class="question-prev">Previous Question</a>
+        {% endif %}
+
+        {% if nextQuestionId %}
+        <a href="{% url 'quiz_question' subject_id=subject_id question_id=nextQuestionId %}"
+            class="question-next">Next Question</a>
+        {% endif %}
+
+    </section>
+</section>
+{% endblock %}

@@ -1,6 +1,6 @@
 .quiz-answer {
     list-style: none;
-    border: 1px solid ;
+    border: 1px solid;
     padding: 20px 10px;
     border-radius: 10px;
 
@@ -19,27 +19,38 @@
     padding: 0px;
 }
 
-.button-container{
+.button-container {
     display: flex;
     justify-content: space-between;
-    padding: 30px 0px ;
+    padding: 30px 0px;
 }
 
-.question-next{
+.question-next {
     padding: 10px;
-    background-color: rgb(166, 167, 224);
+    background-color: rgb(34, 35, 116);
     border-radius: 8px;
-    border: 1px solid rgb(54, 16, 116);
-margin-left: auto;
+    margin-left: auto;
+    color: white;
 }
-.question-prev{
+
+.question-prev {
     padding: 10px;
-    background-color: rgb(166, 167, 224);
+    background-color: rgb(34, 35, 116);
     border-radius: 8px;
-    border: 1px solid rgb(54, 16, 116);
-margin-right: auto;   
+    margin-right: auto;
+    color: white;
 }
 
 a {
     text-decoration: none;
+}
+
+.submit-button{
+    width: 100%;
+    background-color: green ;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+
 }

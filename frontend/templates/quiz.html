@@ -1,0 +1,102 @@
+{% extends 'layout.html'%}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/quiz.css' %}">
+{% endblock %}
+
+{% block quiz %}
+<section class="quiz-container">
+
+    <div>
+        <h1>{{data.data.question.question}}</h1>
+    </div>
+
+    <form id="quiz-form">
+        {% csrf_token %}
+        <ul class="answer-container">
+            {% for answer in data.data.answers %}
+            <li class="quiz-answer">
+                <input type="radio" name="answer" id="answer_{{ forloop.counter }}" value="{{ answer.text }}">
+                <label for="answer_{{ forloop.counter }}">
+                    {{ answer.text }}
+                </label>
+            </li>
+            {% endfor %}
+        </ul>
+        <button id="submit-btn" class="submit-button" type="submit">Submit Answer</button>
+    </form>
+    
+    <div id="feedback" ></div>
+
+    <section class="button-container">
+        {% if prevQuestionId %}
+        <a href="{% url 'quiz_question' subject_id=subject_id question_id=prevQuestionId %}" class="question-prev">
+            Previous Question
+        </a>
+        {% endif %}
+
+        {% if nextQuestionId %}
+        <a href="{% url 'quiz_question' subject_id=subject_id question_id=nextQuestionId %}" class="question-next">
+            Next Question
+        </a>
+        {% endif %}
+    </section>
+</section>
+
+<script>
+    document.getElementById('quiz-form').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        let selectedAnswer = document.querySelector('input[name="answer"]:checked');
+
+        if (!selectedAnswer) return;
+
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        const answerValue = selectedAnswer.value;
+
+        try {
+            const response = await fetch(window.location.href, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': csrfToken,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: new URLSearchParams({ answer: answerValue })
+            });
+
+            const result = await response.json()
+
+            const feedbackDiv = document.getElementById('feedback')
+            const submitBtn = document.getElementById('submit-btn')
+
+            if (result.is_correct) {
+                feedbackDiv.innerHTML = `<p style='
+                  height: 100%;
+                   background-color: rgb(126, 182, 126);
+                   color: green;
+                   padding: 10px 20px;
+                   border-radius: 10px
+                   
+                   '>Correct</p>`
+            } else {
+                feedbackDiv.innerHTML = `<p style='
+                color: red;
+                  height: 100%;
+                   background-color: rgb(219, 182, 182);
+                   padding: 10px 20px;
+                   border-radius: 10px;
+                   
+                   '>Incorrect</p>`
+            }
+
+            submitBtn.remove()
+            
+        } catch (error) {
+            console.error('Error submitting quiz', error)
+        }
+    })
+</script>
+{% endblock %}

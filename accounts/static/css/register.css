@@ -2,6 +2,10 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 nav {
     background-color: #333;
@@ -42,4 +46,15 @@ button {
 }
 button:hover {
     background-color: #555;
+}
+
+.baseline{
+    font-size: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.baseline a {
+    color: #333;
 }

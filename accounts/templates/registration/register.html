@@ -1,0 +1,25 @@
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+<body>
+    <nav>
+        <a href="#login">Login/Sign Up</a>
+    </nav>
+
+    <!-- Page 1: Login or Sign Up -->
+    <div id="login" class="content">
+        <div class="form-container">
+            <h1>Login or Sign Up</h1>
+            <input type="text" placeholder="Username" required>
+            <input type="password" placeholder="Password" required>
+            <button>Login</button>
+            <button>Sign Up</button>
+        </div>
+    </div>
+
+    <script>
+    </script>
+</body>
+</html>

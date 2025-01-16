@@ -92,8 +92,21 @@
                    '>Incorrect</p>`
             }
 
-            submitBtn.remove()
-            
+            submitBtn.remove();
+
+            const nextQuestionUrl  = document.querySelector('.question-next')?.getAttribute('href');
+
+            if (nextQuestionUrl) {
+                setTimeout(() => {                    
+                    window.location.href = nextQuestionUrl
+                }, 500)
+            } else {
+                setTimeout(() => {
+                    window.location.href = '/result'
+
+                }, 500)
+            }
+                
         } catch (error) {
             console.error('Error submitting quiz', error)
         }

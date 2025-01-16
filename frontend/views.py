@@ -1,13 +1,14 @@
-import re
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 import requests
 
-
+@login_required
 def home(request):
     return render(request, "layout.html")
 
 
+@login_required
 def quiz(request, subject_id, question_id):
     question_data_response = requests.get(
         f"http://127.0.0.1:8000/api/subjects/{subject_id}/questions/{question_id}/"

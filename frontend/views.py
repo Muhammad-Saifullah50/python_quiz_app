@@ -5,8 +5,9 @@ import requests
 
 @login_required
 def home(request):
-    return render(request, "layout.html")
-
+    sub_request = requests.get('http://127.0.0.1:8000/api/subjects') 
+    subjects = sub_request.json()
+    return render(request, "home.html", {'username': request.user, 'subjects': subjects})
 
 @login_required
 def quiz(request, subject_id, question_id):

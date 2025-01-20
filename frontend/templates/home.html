@@ -1,0 +1,22 @@
+{% extends 'layout.html'%}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block home %}
+<section>
+   <p class="heading"> Welcome {{username}}</p>
+   <p class="subheading">Which quiz will you attempt today ??</p>
+
+   <div class="container">
+    {%for subject in subjects.data %}
+    <a href="/quiz/subjects/{{subject.id}}" class="box">
+        {{subject.name}}
+    </a>
+    {% endfor %}
+   </div>
+
+</section>
+{% endblock %}

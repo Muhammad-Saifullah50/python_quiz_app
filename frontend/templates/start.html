@@ -1,0 +1,21 @@
+{% extends 'layout.html'%}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/start.css' %}">
+{% endblock %}
+
+{% block start %}
+<section>
+    <p class="heading">{{subject.name}} Quiz </p>
+
+    <div class="container">
+        <p class="subheading"> Duration: 5 minutes</p>
+        <a href="/quiz/subjects/{{subjectId}}/questions/{{firstQuestionId}}" class="start">
+            Start Quiz
+        </a>
+    </div>
+
+</section>
+{% endblock %}
+

@@ -9,7 +9,7 @@ def register(request):
           print(form.is_valid(), 'validity')
           if (form.is_valid()):
               user = form.save()
-              print(user, 'user')
+
               login(request, user)
               return redirect('/')
           

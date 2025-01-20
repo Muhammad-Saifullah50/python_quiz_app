@@ -25,3 +25,11 @@ class Answer(models.Model):
     
     def __str__(self):
         return self.text
+    
+class QuizAttempt(models.Model):
+    userId = models.IntegerField()
+    score = models.IntegerField()
+    subjectId = models.IntegerField()
+    
+    def __int__(self):
+        return self.score

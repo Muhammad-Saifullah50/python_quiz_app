@@ -1,0 +1,21 @@
+.body {
+    margin: 0px;
+    padding: 0px
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 36px;
+    border-bottom: 2px solid black; 
+}
+
+.logout{
+    background-color: green ;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+}

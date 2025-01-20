@@ -63,4 +63,30 @@ def createQuizAttempt(request, subject_id, user_id):
         'data': serializedQuizAttempt.data
     })
     
-# update score
+@api_view(['POST'])
+def incrementScore(request, subject_id, user_id, attempt_id):
+    attempt = QuizAttempt.objects.get(subjectId=subject_id, userId=user_id,id=attempt_id)
+    
+    attempt.score += 1
+    attempt.save()
+    
+    serializedAttempt = QuizAttemptSerializer(attempt)
+    
+    
+    return Response({
+        'data': serializedAttempt.data
+    })
+    
+@api_view(['GET'])
+def getScore(request, subject_id, user_id, attempt_id):
+    attempt = QuizAttempt.objects.get(subjectId=subject_id, userId=user_id,id=attempt_id)
+    
+    serializedAttempt = QuizAttemptSerializer(attempt)
+    
+    
+    return Response({
+        'score': serializedAttempt.data['score']
+    })
+    
+    
+    

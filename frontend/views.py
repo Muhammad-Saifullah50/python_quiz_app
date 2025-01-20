@@ -21,6 +21,7 @@ def start_quiz(request, subject_id):
 
 @login_required
 def quiz(request, subject_id, question_id):
+    
     question_data_response = requests.get(
         f"http://127.0.0.1:8000/api/subjects/{subject_id}/questions/{question_id}/"
     )
@@ -41,6 +42,10 @@ def quiz(request, subject_id, question_id):
         return render(request, "quiz.html", {"error": "Invalid question id"})
 
     currQuestionIndex = question_list.index(question_id)
+    
+    firstQuestion = question_list[0] == question_list[currQuestionIndex]
+    if (firstQuestion): 
+        attempt_create_request = requests.post(f"http://127.0.0.1:8000//api/quiz-attempt/{subject_id}/{request.user.id}")
 
     if currQuestionIndex + 1 < len(question_list):
         nextQuestionId = question_list[currQuestionIndex + 1]

@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from api.models import Answer, Question, Subject
-from .serializers import AnswerSerializer, QuestionSerializer, SubjectSerializer
+from api.models import Answer, Question, QuizAttempt, Subject
+from .serializers import AnswerSerializer, QuestionSerializer, QuizAttemptSerializer, SubjectSerializer
 
 
 @api_view(["GET"])
@@ -53,5 +53,14 @@ def getQuestionById(request, subject_id, question_id):
     )
 
 @api_view (['POST'])
-def quizAttempt(request, subject_id):
-    pass
+def createQuizAttempt(request, subject_id, user_id):
+    
+    attempt = QuizAttempt.objects.create(userId=user_id, score=0, subjectId=subject_id)
+    
+    serializedQuizAttempt = QuizAttemptSerializer(attempt)
+
+    return Response({
+        'data': serializedQuizAttempt.data
+    })
+    
+# update score

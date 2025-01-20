@@ -27,9 +27,9 @@ class Answer(models.Model):
         return self.text
     
 class QuizAttempt(models.Model):
-    userId = models.TextField()
+    userId = models.IntegerField()
     score = models.IntegerField()
     subjectId = models.IntegerField()
     
-    def __str__(self):
+    def __int__(self):
         return self.score

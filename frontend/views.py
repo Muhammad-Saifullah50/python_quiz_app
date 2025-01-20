@@ -10,6 +10,16 @@ def home(request):
     return render(request, "home.html", {'username': request.user, 'subjects': subjects})
 
 @login_required
+def start_quiz(request, subject_id):
+    questions_request = requests.get(f'http://127.0.0.1:8000/api/subjects/{subject_id}/questions')
+    
+    questions = questions_request.json()
+    
+    firstQuestionId = questions['data'][0].get('id')
+    
+    return render(request, 'start.html', {'subjectId': subject_id, 'firstQuestionId': firstQuestionId})
+
+@login_required
 def quiz(request, subject_id, question_id):
     question_data_response = requests.get(
         f"http://127.0.0.1:8000/api/subjects/{subject_id}/questions/{question_id}/"

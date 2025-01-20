@@ -51,3 +51,7 @@ def getQuestionById(request, subject_id, question_id):
     return Response(
         {"message": "Question retrieved successfully", "data": data}, status=200
     )
+
+@api_view (['POST'])
+def quizAttempt(request, subject_id):
+    pass

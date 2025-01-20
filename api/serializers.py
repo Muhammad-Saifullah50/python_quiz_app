@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from api.models import Answer, Question, Subject
+from api.models import Answer, Question, QuizAttempt, Subject
 
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,4 +16,9 @@ class QuestionSerializer(serializers.ModelSerializer):
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
+        fields = '__all__'
+    
+class QuizAttemptSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuizAttempt
         fields = '__all__'

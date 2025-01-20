@@ -12,7 +12,7 @@
 
    <div class="container">
     {%for subject in subjects.data %}
-    <a class="box">
+    <a href="/quiz/subjects/{{subject.id}}" class="box">
         {{subject.name}}
     </a>
     {% endfor %}

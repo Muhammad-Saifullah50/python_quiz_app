@@ -1,0 +1,33 @@
+.heading {
+    font-size: xx-large;
+    text-transform: capitalize;
+    text-align: center;
+    font-weight: 700;
+}
+.subheading {
+    font-size: x-large;
+    text-transform: capitalize;
+    text-align: center;
+    font-weight: 600;
+}
+
+.container {
+    padding: 50px 50px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 50vh;
+}
+.box{
+    text-decoration: none;
+    color: black;
+    padding: 20px 20px;
+    border-radius: 20px;
+    background-color: burlywood;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+}

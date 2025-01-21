@@ -3,22 +3,28 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/register.css' %}">
 {% endblock %}
+
+{% block content %}
 <form method="post">
-   {% csrf_token %}
+    {% csrf_token %}
     <div id="login" class="content">
         <div class="form-container">
             <h1>
                 Register your account
             </h1>
+            {%if error != None%}
+            <p>{{error}}</p>
+            {%endif%}
             <input type="text" name="username" placeholder="Username" required>
             <input type="email" name='email' placeholder="Email Address" required>
             <input type="password" name="password1" placeholder="Password" required>
             <input type="password" name="password2" placeholder="Confirm Password" required>
             <button>Sign Up</button>
+            <p class="baseline">Already have an account ? &nbsp; <a href="/accounts/login">Login</a></p>
         </div>
     </div>
 
     <script>
     </script>
 </form>
-</html>
+{% endblock %}

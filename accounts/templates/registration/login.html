@@ -10,6 +10,9 @@
     <div id="login" class="content">
         <div class="form-container">
             <h1>Login to your account</h1>
+            {%if error != None%}
+            <p class="error">{{error}}</p>
+            {%endif%}
             <input type="username" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <button>Login</button>

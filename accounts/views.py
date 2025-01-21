@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from accounts.forms import RegistrationForm
 from django.contrib.auth import login, authenticate, logout
 
 def register(request):
@@ -16,7 +15,7 @@ def register(request):
             if password1 != password2:
                 return render(request, 'registration/register.html', {'error': 'Passwords do not match'})
             
-            user = User.objects.create(
+            user = User.objects.create_user(
                 username=username,
                 email=email,
                 password=password1
@@ -34,19 +33,24 @@ def register(request):
   
 def login_view(request):
     
+    error = None
     if (request.method == 'POST'):
-        
         username = request.POST['username']
         password= request.POST['password']
         
-        user = authenticate(username=username, password=password)
+        try:
+           user = authenticate(username=username, password=password)
+           if user is not None:
+              login(request, user)
+              return redirect('/')
+           else: 
+              return render(request, 'registration/login.html', {'error': 'Invalid username or password'}) 
+            
+        except Exception as e:
+            error = e
         
-        print(user, 'user')
-        if user is not None:
-           login(request, user)
-           return redirect('/')
         
-    return render(request, 'registration/login.html')
+    return render(request, 'registration/login.html', {'error': error})
 
 def logout_view(request):
     logout(request)

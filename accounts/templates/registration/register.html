@@ -13,7 +13,7 @@
                 Register your account
             </h1>
             {%if error != None%}
-            <p>{{error}}</p>
+            <p class="error">{{error}}</p>
             {%endif%}
             <input type="text" name="username" placeholder="Username" required>
             <input type="email" name='email' placeholder="Email Address" required>

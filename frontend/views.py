@@ -1,3 +1,4 @@
+import json
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -35,7 +36,7 @@ def quiz(request, subject_id, question_id):
     question_data_response = requests.get(
         f"http://127.0.0.1:8000/api/subjects/{subject_id}/questions/{question_id}/"
     )
-    
+
     data = question_data_response.json()
 
     question_list_response = requests.get(
@@ -56,9 +57,14 @@ def quiz(request, subject_id, question_id):
     firstQuestion = question_list[0] == question_list[currQuestionIndex]
 
     attempt_id = request.session.get("attempt_id", None)
-    score_request = requests.get(f'http://127.0.0.1:8000/api/quiz-attempt/subjects/{subject_id}/users/{request.user.id}/attempts/{attempt_id}/score')
-    
-    score = score_request.json()['score']
+    score_request = requests.get(
+        f"http://127.0.0.1:8000/api/quiz-attempt/subjects/{subject_id}/users/{request.user.id}/attempts/{attempt_id}/score"
+    )
+
+    try:
+        score = score_request.json().get("data").get("score") or 0
+    except (KeyError, ValueError, json.JSONDecodeError):
+        score = 0
 
     if firstQuestion:
         attempt_create_request = requests.post(
@@ -67,7 +73,7 @@ def quiz(request, subject_id, question_id):
         attempt = attempt_create_request.json()
         attempt_id = attempt["data"]["id"]
 
-        request.session['attempt_id'] = attempt_id
+        request.session["attempt_id"] = attempt_id
 
     if currQuestionIndex + 1 < len(question_list):
         nextQuestionId = question_list[currQuestionIndex + 1]
@@ -87,22 +93,30 @@ def quiz(request, subject_id, question_id):
         selected_answer = request.POST.get("answer")
 
         is_correct = selected_answer == correct_answer
-        
-        if is_correct:
-           attempt_score_update_request = requests.post(f'http://127.0.0.1:8000/api/quiz-attempt/subjects/{subject_id}/users/{request.user.id}/attempts/{attempt_id}')
-           
 
-        return JsonResponse({"is_correct": is_correct})
+        if is_correct:
+            attempt_score_update_request = requests.post(
+                f"http://127.0.0.1:8000/api/quiz-attempt/subjects/{subject_id}/users/{request.user.id}/attempts/{attempt_id}"
+            )
+
+        return JsonResponse({"is_correct": is_correct, 'subject_id': subject_id})
 
     context = {
         "data": data,
         "nextQuestionId": nextQuestionId,
         "prevQuestionId": prevQuestionId,
         "subject_id": subject_id,
-        'score': score
-        
+        "score": score,
     }
     return render(request, "quiz.html", context)
 
+@login_required
+def result(request, subject_id):
+    attempt_id = request.session.get("attempt_id", None)
 
+    score_request = requests.get(
+        f"http://127.0.0.1:8000/api/quiz-attempt/subjects/{subject_id}/users/{request.user.id}/attempts/{attempt_id}/score"
+    )
 
+    score = score_request.json().get('data').get('score') if score_request.json().get('data').get('score') else 0
+    return render(request, "result.html", {'score': score})

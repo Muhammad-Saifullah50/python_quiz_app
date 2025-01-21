@@ -85,7 +85,7 @@ def getScore(request, subject_id, user_id, attempt_id):
     
     
     return Response({
-        'score': serializedAttempt.data['score']
+        'data': serializedAttempt.data
     })
     
     

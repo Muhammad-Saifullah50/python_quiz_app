@@ -1,0 +1,21 @@
+{% extends 'layout.html'%}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/result.css' %}">
+{% endblock %}
+
+{% block result %}
+<section>
+    <p class="heading"> Your quiz is over </p>
+    <p class="heading"> You scored <span>{{score}}</span> out of 5 points </p>
+
+    <div class="container">
+        <a href="/" class="home_btn">
+            Back to home
+        </a>
+    </div>
+
+</section>
+{% endblock %}
+

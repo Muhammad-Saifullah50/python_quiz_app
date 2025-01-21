@@ -31,6 +31,9 @@ nav a:hover {
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 .form-container input, .form-container button {
     width: 100%;
@@ -57,4 +60,10 @@ button:hover {
 
 .baseline a {
     color: #333;
+}
+
+.error{
+    font-size: small;
+    color: red;
+    text-align: center;
 }

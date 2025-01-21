@@ -13,6 +13,7 @@
         <span>{{score}} / 5 &nbsp; Points</span>
     </div>
 
+
     <form id="quiz-form">
         {% csrf_token %}
         <ul class="answer-container">
@@ -103,7 +104,7 @@
                 }, 500)
             } else {
                 setTimeout(() => {
-                    window.location.href = '/result'
+                    window.location.href = `/result/${result.subject_id}`
 
                 }, 500)
             }

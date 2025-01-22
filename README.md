@@ -3,11 +3,11 @@ Execute these four commands after cloning the repository or downloading
 1- python -m venv app-env
 
 2- 
-for bash on windows
+for bash on windows: execute
 
 source app-env/Scripts/activate
 
-for Powershell or CMD
+for Powershell or CMD: execute
 
 app-env\Scripts\activate
 

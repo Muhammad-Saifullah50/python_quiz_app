@@ -1,11 +1,14 @@
-python -m ensurepip --upgrade
-python -m venv app-env
+Execute these four commands after cloning the repository or downloading
 
-make sure you are using bash in the terminal, the default is powershell, you can change it from the dropdown
+1- python -m venv app-env
 
-execute these commands 
-
+2- 
+# for bash on windows
 source app-env/Scripts/activate
+# for Powershell or CMD
+app-env\Scripts\activate
 
-press ctrl + shift + p and type select python interpreter. make sure the one having app-env is selected
-pip install -r requirements.txt
+Press ctrl + shift + p and type select python interpreter. make sure the one having app-env is selected
+
+3- pip install -r requirements.txt
+4- python manage.py runserver
